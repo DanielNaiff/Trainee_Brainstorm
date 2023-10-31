@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projeto Trainee</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: #f0f0f0;
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      .container {
+        background-image: linear-gradient(to top right, black, white);
+        background-size: 100% 20%;
+        background-repeat: no-repeat;
+        position: relative;
+        padding: 1em;
+        border-radius: 15px;
+        width: 15em;
+        height: 23em;
+        overflow: hidden;
+        box-shadow: 5px 8px 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 40px 0;
+      }
+
+      .profile-pic {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-bottom: 1em;
+        margin-top: 1em;
+        border: 2px solid #fff;
+      }
+
+      .profile-pic img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .header {
+        text-align: center;
+      }
+
+      .header p {
+        font-weight: bold;
+        font-size: 12px;
+        margin: 0.2em 0;
+      }
+
+      .header p:nth-child(2) {
+        font-size: 10px;
+        color: gray;
+      }
+
+      .footer {
+        width: 100%;
+        height: 1px;
+        background-color: gray;
+        margin: 1em 0;
+        margin-top: 10em;
+      }
+
+      .columns {
+        display: flex;
+        justify-content: space-between;
+        width: 80%;
+        align-items: center;
+      }
+
+      .column {
+        width: 30%;
+      }
+
+      .column p:first-child {
+        font-weight: bold;
+        font-size: 12px;
+      }
+
+      .column p:last-child {
+        color: gray;
+        font-size: 10px;
+      }
+
+      meta[name='viewport'] {
+        width: device-width;
+        initial-scale: 1;
+      }
+
+      @media screen and (max-width: 600px) {
+        .container {
+          width: 80%;
+          height: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="profile-pic">
+        <img src="foto1.png" alt="Foto" />
+      </div>
+      <div class="header">
+        <p>Daniel Naiff 23</p>
+        <p>Belém - Pará - Brasil</p>
+      </div>
+      <div class="footer"></div>
+      <div class="columns">
+        <div class="column">
+          <p>80 K</p>
+          <p>seguidores</p>
+        </div>
+        <div class="column">
+          <p>803K</p>
+          <p>curtidas</p>
+        </div>
+        <div class="column">
+          <p>1.04k</p>
+          <p>Fotos</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    const container = document.querySelector('.container');
+
+    container.addEventListener('mousemove', containerEffect);
+    container.addEventListener('mouseleave', containerBack);
+    container.addEventListener('mouseenter', containerEnter);
+
+    function containerEffect(event) {
+      const containerWidth = container.offsetWidth;
+      const containerHeight = container.offsetHeight;
+      const centerX = container.offsetLeft + containerWidth / 2;
+      const centerY = container.offsetTop + containerHeight / 2;
+      const positionX = event.clientX - centerX;
+      const positionY = event.clientY - centerY;
+
+      const rotateX = (+1 * 25 * positionY) / (containerHeight / 2);
+      const rotateY = (-1 * 25 * positionX) / (containerWidth / 2);
+
+      container.style.transform = `perspective(500px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    }
+
+    function containerBack(event) {
+      container.style.transform = `perspective(500px) rotateX(0deg) rotateY(0deg)`;
+      containerTransition();
+    }
+
+    function containerTransition() {
+      clearInterval(container.transitionId);
+      container.style.transition = 'transform 400ms';
+      container.transitionId = setTimeout(() => {
+        container.style.transition = '';
+      }, 400);
+    }
+
+    function containerEnter(event) {
+      containerTransition();
+    }
+  </script>
+</html>
